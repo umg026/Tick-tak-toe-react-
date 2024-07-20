@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-const initiaalBoard = Array(9).fill(null);
+const initiaalBoard: (null | string)[] = Array(9).fill(null);
 
 const useTickToe = () => {
-  const [board, setBoard] = useState(initiaalBoard);
-  const [isNext, setIsNext] = useState(true);
-  const WINNING_PATTERNS = [
+  const [board, setBoard] = useState<(null | string)[]>(initiaalBoard);
+  const [isNext, setIsNext] = useState<boolean>(true);
+  const WINNING_PATTERNS: number[][] = [
     [0, 1, 2],
     [0, 3, 6],
     [3, 4, 5],
@@ -16,7 +16,7 @@ const useTickToe = () => {
     [2, 4, 6],
   ];
 
-  const calculateWinner = (board) => {
+  const calculateWinner = (board: (null | string)[]): null | string => {
     for (let i = 0; i < WINNING_PATTERNS.length; i++) {
       const [a, b, c] = WINNING_PATTERNS[i];
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
@@ -25,8 +25,8 @@ const useTickToe = () => {
     }
     return null;
   };
-  const handelClick = (index: Number) => {
-    console.log('index', index);
+  const handelClick = (index: number) : void => {
+    // console.log('index', index);
     const winner: any = calculateWinner(board);
     if (winner || board[index]) return;
 
@@ -36,7 +36,7 @@ const useTickToe = () => {
     setIsNext(!isNext);
   };
 
-  const getStatusMesage = () => {
+  const getStatusMesage = () :string => {
     const winner = calculateWinner(board);
 
     if (winner) return `Player ${winner} wins!`;
